@@ -82,6 +82,7 @@ The models have been trained and evaluated, with the following key results:
 *Figure 1: Scatter plot illustrating the relationship between predicted and true SoC values by the LSTM model (left).*
 *Figure 2: Predicted and true SoC values on a test data by the LSTM model (right).*
 
+
 <p float="left">
   <img src="images/DNN_pred_vs_true.png" alt="Predicted SOC vs True SOC using DNN" style="height: 300px;" />
   <img src="images/DNN_visualization.png" alt="DNN visualization on a test data" style="height: 300px;" />
