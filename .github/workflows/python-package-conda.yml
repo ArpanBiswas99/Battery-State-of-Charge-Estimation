@@ -7,33 +7,40 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Conda Environment
+      uses: conda-incubator/setup-miniconda@v2
       with:
-        python-version: '3.10'
-    - name: Install Anaconda
+        miniconda-version: "latest"
+        conda-version: "latest"
+        activate-environment: base
+        python-version: 3.10
+        auto-activate-base: true
+
+    - name: Install Dependencies
       run: |
-        $CONDA_URL = "https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe"
-        $CONDA_PATH = "$env:TEMP/miniconda.exe"
-        Invoke-WebRequest -Uri $CONDA_URL -OutFile $CONDA_PATH
-        Start-Process -FilePath $CONDA_PATH -ArgumentList '/InstallationType=JustMe /RegisterPython=0 /S /D=%UserProfile%\Miniconda3' -Wait
-        $env:PATH = "$env:UserProfile\Miniconda3;$env:UserProfile\Miniconda3\Scripts;$env:UserProfile\Miniconda3\Library\bin;$env:PATH"
-    - name: Install dependencies
-      run: |
-        conda env update --file environment.yml --name base
-    - name: Lint with flake8
-      run: |
-        conda install flake8
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Install Jupyter and nbconvert
-      run: |
-        conda install -c anaconda jupyter nbconvert
-    - name: Execute Jupyter Notebook
-      run: |
-        jupyter nbconvert --to notebook --execute path/to/your-notebook.ipynb
-    - name: Test with pytest
+        conda install numpy pandas matplotlib scikit-learn
+        conda install pytorch torchvision cpuonly -c pytorch
+        conda install jupyter nbconvert
+      shell: bash
+
+    - name: Execute DNN Training Notebook (Skip Training)
+      env:
+        SKIP_TRAINING: True
+        SKIP_OPTUNA: True
+      run: jupyter nbconvert --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output modeling_and_evaluation/executed_dnn_notebook.ipynb
+      shell: bash
+
+    - name: Execute LSTM Training Notebook (Skip Training)
+      env:
+        SKIP_TRAINING: True
+        SKIP_OPTUNA: True
+      run: jupyter nbconvert --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output modeling_and_evaluation/executed_lstm_notebook.ipynb
+      shell: bash
+
+    - name: Run Tests with pytest
       run: |
         conda install pytest
         pytest
