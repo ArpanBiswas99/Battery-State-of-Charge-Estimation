@@ -7,23 +7,26 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
-    - name: Setup Conda Environment
+    - uses: actions/checkout@v3
+    
+    - name: Setup Miniconda
       uses: conda-incubator/setup-miniconda@v2
       with:
+        auto-update-conda: true
         miniconda-version: "latest"
-        conda-version: "latest"
-        activate-environment: base
         python-version: 3.10
+        activate-environment: base
         auto-activate-base: true
+
+    - name: Initialize Conda
+      run: conda init bash
 
     - name: Install Dependencies
       run: |
-        conda install numpy pandas matplotlib scikit-learn
-        conda install pytorch torchvision cpuonly -c pytorch
-        conda install jupyter nbconvert
+        conda install -y numpy pandas matplotlib scikit-learn
+        conda install -y pytorch torchvision cpuonly -c pytorch
+        conda install -y jupyter nbconvert
+        conda info --envs
       shell: bash
 
     - name: Execute DNN Training Notebook (Skip Training)
