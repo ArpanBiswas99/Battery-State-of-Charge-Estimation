@@ -76,15 +76,15 @@ The models have been trained and evaluated, with the following key results:
 - Visualization of predictions against true values indicates excellent model alignment with real-world data.
 
 <p float="left">
-  <img src="images/LSTM_pred_vs_true.png" alt="Predicted SOC vs True SOC using LSTM" width="400" />
-  <img src="images/LSTM_visualization.png" alt="LSTM visualization on a test data" width="400" /> 
+  <img src="images/LSTM_pred_vs_true.png" alt="Predicted SOC vs True SOC using LSTM" style="height: 300px;" />
+  <img src="images/LSTM_visualization.png" alt="LSTM visualization on a test data" style="height: 300px;" /> 
 </p>
 *Figure 1: Scatter plot illustrating the relationship between predicted and true SoC values by the LSTM model (left).*
 *Figure 2: Predicted and true SoC values on a test data by the LSTM model (right).*
 
 <p float="left">
-  <img src="images/DNN_pred_vs_true.png" alt="Predicted SOC vs True SOC using DNN" width="400" />
-  <img src="images/DNN_visualization.png" alt="DNN visualization on a test data" width="400" /> 
+  <img src="images/DNN_pred_vs_true.png" alt="Predicted SOC vs True SOC using DNN" style="height: 300px;" />
+  <img src="images/DNN_visualization.png" alt="DNN visualization on a test data" style="height: 300px;" />
 </p>
 *Figure 3: Scatter plot illustrating the relationship between predicted and true SoC values by the DNN model (left).*
 *Figure 4: Predicted and true SoC values on a test data by the DNN model (right).*
@@ -95,7 +95,9 @@ The models have been trained and evaluated, with the following key results:
 #### Background
 The sigmoid activation function is traditionally used in binary classification tasks because it maps input values to an output range between 0 and 1. This characteristic makes it well-suited for representing probabilities in binary outcomes.
 
-![Predicted SOC vs True SOC for DNN using Sigmoid activation](images/DNN_pred_vs_true_sigmoid.png)
+<p float="left">
+  <img src="images/DNN_pred_vs_true_sigmoid.png" alt="Predicted SOC vs True SOC for DNN using Sigmoid activation" style="height: 300px;" />
+</p>
 *Figure 5: Scatter plot illustrating the relationship between predicted and true SoC values by the DNN model using sigmoid activation at the output layer.*
 
 #### Identified Issues
