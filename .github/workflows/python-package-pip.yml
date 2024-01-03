@@ -22,12 +22,18 @@ jobs:
       run: ls -R ~/.cache
     
     - name: Cache pip
+      id: cache-pip
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
+      
+    - name: Check Cache Status
+      run: |
+        echo "Cache Hit: ${{ steps.cache-pip.outputs.cache-hit }}"
+      if: steps.cache-pip.outputs.cache-hit == 'true'
     
     - name: List Cache Contents (After)
       run: ls -R ~/.cache
