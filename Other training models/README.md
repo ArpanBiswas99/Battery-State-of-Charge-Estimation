@@ -2,7 +2,7 @@
 
 This is a Python project that utilizes a 1D Convolutional Neural Network (CNN) and a Fully Connected (FC) network to estimate the State of Charge (SOC) of a battery. The project focuses on data preprocessing, model training, and evaluation for datasets containing battery charge-discharge cycles under various temperatures.
 
-Models are built using Tensorflow and trained on ***[LG 18650HG2](https://data.mendeley.com/datasets/cp3473x7xv/3)*** and ***[Panasonic 18650PF](https://data.mendeley.com/datasets/wykht8y7tg/1)*** Li-ion battery datasets.
+Models are built using pytorch and trained on ***[LG 18650HG2](https://data.mendeley.com/datasets/cp3473x7xv/3)*** and ***[Panasonic 18650PF](https://data.mendeley.com/datasets/wykht8y7tg/1)*** Li-ion battery datasets.
 
 ## Project Overview
 The primary objective is to predict the SOC of batteries accurately. Two models are employed for this purpose:
