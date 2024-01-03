@@ -1,6 +1,10 @@
-name: Python Package using Conda on Windows with Jupyter Notebook
+name: Python Package using Python and Pip on Windows with Jupyter Notebook
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-windows:
@@ -8,26 +12,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
-    - name: Setup Miniconda
-      uses: conda-incubator/setup-miniconda@v2
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
       with:
-        auto-update-conda: true
-        miniconda-version: "latest"
-        python-version: 3.10
-        activate-environment: base
-        auto-activate-base: true
+        python-version: '3.10'
 
-    - name: Initialize Conda
-      run: conda init bash
-
-    - name: Install Dependencies
+    - name: Install Dependencies with Pip
       run: |
-        conda install -y numpy pandas matplotlib scikit-learn
-        conda install -y pytorch torchvision cpuonly -c pytorch
-        conda install -y jupyter nbconvert
-        conda info --envs
-      shell: bash
+        python -m pip install --upgrade pip
+        pip install numpy pandas matplotlib scikit-learn
+        pip install torch torchvision # Add -f https://download.pytorch.org/whl/torch_stable.html if needed
+        pip install jupyter nbconvert
+        pip install pytest # Assuming you want to run pytest
 
     - name: Execute DNN Training Notebook (Skip Training)
       env:
@@ -35,7 +32,6 @@ jobs:
         SKIP_OPTUNA: "True"
       run: |
         jupyter nbconvert --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output modeling_and_evaluation/executed_dnn_notebook.ipynb
-      shell: bash
 
     - name: Execute LSTM Training Notebook (Skip Training)
       env:
@@ -43,9 +39,6 @@ jobs:
         SKIP_OPTUNA: "True"
       run: |
         jupyter nbconvert --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output modeling_and_evaluation/executed_lstm_notebook.ipynb
-      shell: bash
 
     - name: Run Tests with pytest
-      run: |
-        conda install pytest
-        pytest
+      run: pytest
