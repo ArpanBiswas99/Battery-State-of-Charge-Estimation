@@ -3,6 +3,10 @@
 ## Introduction
 This repository contains code for estimating the State of Charge (SoC) of LG HG2 batteries using Deep Neural Networks (DNN) and Long Short-Term Memory (LSTM) models.
 
+LG 18650HG2 Li-ion Battery Data - https://data.mendeley.com/datasets/cp3473x7xv/3
+
+Kollmeyer, Philip; Vidal, Carlos; Naguib, Mina; Skells, Michael (2020), “LG 18650HG2 Li-ion Battery Data and Example Deep Neural Network xEV SOC Estimator Script”, Mendeley Data, V3, doi: 10.17632/cp3473x7xv.3
+
 ## Features
 - **Data Processing**: Scripts to load, normalize, and preprocess battery data for model training.
 - **Model Training**: Instructions for training DNN and LSTM models, including hyperparameter tuning with Optuna.
@@ -19,5 +23,5 @@ This repository contains code for estimating the State of Charge (SoC) of LG HG2
 - **Author**: Arpan Biswas
 
 ## License
-Information about the project's licensing and usage terms.
+MIT License
 
