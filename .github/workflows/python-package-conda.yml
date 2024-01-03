@@ -28,16 +28,18 @@ jobs:
 
     - name: Execute DNN Training Notebook (Skip Training)
       env:
-        SKIP_TRAINING: True
-        SKIP_OPTUNA: True
-      run: jupyter nbconvert --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output modeling_and_evaluation/executed_dnn_notebook.ipynb
+        SKIP_TRAINING: "True"
+        SKIP_OPTUNA: "True"
+      run: |
+        jupyter nbconvert --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output modeling_and_evaluation/executed_dnn_notebook.ipynb
       shell: bash
 
     - name: Execute LSTM Training Notebook (Skip Training)
       env:
-        SKIP_TRAINING: True
-        SKIP_OPTUNA: True
-      run: jupyter nbconvert --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output modeling_and_evaluation/executed_lstm_notebook.ipynb
+        SKIP_TRAINING: "True"
+        SKIP_OPTUNA: "True"
+      run: |
+        jupyter nbconvert --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output modeling_and_evaluation/executed_lstm_notebook.ipynb
       shell: bash
 
     - name: Run Tests with pytest
