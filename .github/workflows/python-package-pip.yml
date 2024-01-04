@@ -64,6 +64,9 @@ jobs:
       shell: cmd
 
     - name: Execute Jupyter Notebook (DNN)
+      env:
+        SKIP_TRAINING: "True"
+        SKIP_OPTUNA: "True"
       run: |
         python -m jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output executed_dnn_notebook.ipynb
       shell: cmd
@@ -98,6 +101,9 @@ jobs:
       shell: cmd
 
     - name: Execute Jupyter Notebook (LSTM)
+      env:
+        SKIP_TRAINING: "True"
+        SKIP_OPTUNA: "True"
       run: |
         python -m jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output executed_lstm_notebook.ipynb
       shell: cmd
