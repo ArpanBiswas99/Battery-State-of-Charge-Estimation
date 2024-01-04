@@ -1,4 +1,4 @@
-name: Python Package using Python and Pip on Windows with Jupyter Notebook
+name: ls
 
 on:
   push:
@@ -12,12 +12,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
+    
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
         python-version: '3.10'
+    
+    # Rest of your steps...
 
-    - name: List directory contents
-      run: ls Battery-State-of-Charge-Estimation/dataset/
+    - name: List dataset directory contents
+      run: dir .\Battery-State-of-Charge-Estimation\dataset\
+      shell: pwsh
+
 
