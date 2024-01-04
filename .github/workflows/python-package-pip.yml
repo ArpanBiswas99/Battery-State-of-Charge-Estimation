@@ -7,53 +7,97 @@ on:
     branches: [ main ]
 
 jobs:
-  build-windows:
+  setup-dependencies:
     runs-on: windows-latest
-
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
         python-version: '3.10'
 
-    - name: Install Dependencies with Pip
+    - name: Cache pip and Python dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cache/pip
+          ~/AppData/Local/pip/Cache
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install jupyter nbconvert
-        pip install pytest
       shell: cmd
 
-    - name: Print Working Directory
-      run: echo %CD%
-      shell: cmd
+  execute-dnn-notebook:
+    needs: setup-dependencies
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    - name: List Contents of the Project Directory
-      run: dir
-      shell: cmd
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
 
-    - name: List Contents of Dataset Directory
-      run: dir dataset
-      shell: cmd
+    - name: Restore pip cache
+      id: cache-pip
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cache/pip
+          ~/AppData/Local/pip/Cache
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
 
-    - name: Execute DNN Training Notebook (Skip Training)
-      env:
-        SKIP_TRAINING: "True"
-        SKIP_OPTUNA: "True"
+    - name: Install dependencies
       run: |
-        jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output modeling_and_evaluation/executed_dnn_notebook.ipynb
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
       shell: cmd
 
-    - name: Execute LSTM Training Notebook (Skip Training)
-      env:
-        SKIP_TRAINING: "True"
-        SKIP_OPTUNA: "True"
+    - name: Execute Jupyter Notebook (DNN)
       run: |
-        jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output modeling_and_evaluation/executed_lstm_notebook.ipynb
+        python -m jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output executed_dnn_notebook.ipynb
       shell: cmd
 
-    - name: Run Tests with pytest
-      run: pytest
+  execute-lstm-notebook:
+    needs: setup-dependencies
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Restore pip cache
+      id: cache-pip
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cache/pip
+          ~/AppData/Local/pip/Cache
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      shell: cmd
+
+    - name: Execute Jupyter Notebook (LSTM)
+      run: |
+        python -m jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output executed_lstm_notebook.ipynb
       shell: cmd

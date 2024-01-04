@@ -70,9 +70,9 @@ The consolidation of these scripts into one directory streamlines the process fr
 ## Results
 
 The models have been trained and evaluated, with the following key results:
-- DNN Model MSE: 0.0281%, MAE: 1.3196%
-- LSTM Model MSE: 0.00274%, MAE: 0.36023%
-- The LSTM model outperformed the DNN in capturing temporal dependencies, achieving an even lower MSE of Y on the test data.
+- DNN Model MSE: 0.0281 %, MAE: 1.3196 %
+- LSTM Model MSE: 0.00274 %, MAE: 0.36023 %
+- The LSTM model outperformed the DNN in capturing temporal dependencies, achieving an even lower MSE of 0.00274 % on the test data.
 - Visualization of predictions against true values indicates excellent model alignment with real-world data.
 
 <p float="left">
