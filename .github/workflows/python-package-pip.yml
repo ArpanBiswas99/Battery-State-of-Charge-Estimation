@@ -18,42 +18,43 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install Dependencies with Pip
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install jupyter nbconvert
-        pip install pytest
-      shell: cmd
+    # - name: Install Dependencies with Pip
+    #   run: |
+    #     python -m pip install --upgrade pip
+    #     pip install -r requirements.txt
+    #     pip install jupyter nbconvert
+    #     pip install pytest
+    #   shell: cmd
 
-    - name: Print Working Directory
-      run: echo %CD%
-      shell: cmd
+    # - name: Print Working Directory
+    #   run: echo %CD%
+    #   shell: cmd
 
-    - name: List Contents of the Project Directory
-      run: dir
-      shell: cmd
+    # - name: List Contents of the Project Directory
+    #   run: dir
+    #   shell: cmd
 
-    - name: List Contents of Dataset Directory
-      run: dir dataset
-      shell: cmd
+    # - name: List Contents of Dataset Directory
+    #   run: dir dataset
+    #   shell: cmd
 
-    - name: Execute DNN Training Notebook (Skip Training)
-      env:
-        SKIP_TRAINING: "True"
-        SKIP_OPTUNA: "True"
-      run: |
-        jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output modeling_and_evaluation/executed_dnn_notebook.ipynb
-      shell: cmd
 
-    - name: Execute LSTM Training Notebook (Skip Training)
-      env:
-        SKIP_TRAINING: "True"
-        SKIP_OPTUNA: "True"
-      run: |
-        jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output modeling_and_evaluation/executed_lstm_notebook.ipynb
-      shell: cmd
+    # - name: Execute DNN Training Notebook (Skip Training)
+    #   env:
+    #     SKIP_TRAINING: "True"
+    #     SKIP_OPTUNA: "True"
+    #   run: |
+    #     jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output modeling_and_evaluation/executed_dnn_notebook.ipynb
+    #   shell: cmd
 
-    - name: Run Tests with pytest
-      run: pytest
-      shell: cmd
+    # - name: Execute LSTM Training Notebook (Skip Training)
+    #   env:
+    #     SKIP_TRAINING: "True"
+    #     SKIP_OPTUNA: "True"
+    #   run: |
+    #     jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output modeling_and_evaluation/executed_lstm_notebook.ipynb
+    #   shell: cmd
+
+    # - name: Run Tests with pytest
+    #   run: pytest
+    #   shell: cmd
