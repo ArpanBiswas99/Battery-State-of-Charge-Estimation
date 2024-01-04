@@ -18,15 +18,12 @@ jobs:
       with:
         python-version: '3.10'
     
-    # Rest of your steps...
+    # ... other steps ...
 
     - name: List root directory contents
       run: dir
       shell: pwsh
 
     - name: List dataset directory contents
-      run: dir .\Battery-State-of-Charge-Estimation\dataset\
+      run: dir .\dataset\
       shell: pwsh
-
-
-
