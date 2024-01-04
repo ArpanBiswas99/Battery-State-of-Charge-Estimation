@@ -131,10 +131,6 @@ To get started with the Battery State of Charge Estimation Project, follow these
 For more detailed instructions, please refer to the README files within each subdirectory.
 
 
-## Contributing
-Your contributions are always welcome! If you have any suggestions or want to improve the models or scripts, please feel free to fork this repository, make changes, and submit a pull request.
-
-
 ## Author
 - **Arpan Biswas**
 
