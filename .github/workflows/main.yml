@@ -1,4 +1,4 @@
-name: ls
+name: Python Package using Python and Pip on Windows with Jupyter Notebook
 
 on:
   push:
@@ -20,8 +20,13 @@ jobs:
     
     # Rest of your steps...
 
+    - name: List root directory contents
+      run: dir
+      shell: pwsh
+
     - name: List dataset directory contents
       run: dir .\Battery-State-of-Charge-Estimation\dataset\
       shell: pwsh
+
 
 
