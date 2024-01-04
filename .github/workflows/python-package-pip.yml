@@ -19,24 +19,26 @@ jobs:
         python-version: '3.10'
 
     - name: List Cache Contents (Before)
-      run: ls -R ~/.cache
-    
+      run: dir C:\Users\runneradmin\AppData\Local\pip\Cache
+      shell: cmd
+
     - name: Cache pip
       id: cache-pip
       uses: actions/cache@v2
       with:
-        path: ~/.cache/pip
+        path: ~\AppData\Local\pip\Cache
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
       
     - name: Check Cache Status
-      run: |
-        echo "Cache Hit: ${{ steps.cache-pip.outputs.cache-hit }}"
+      run: echo "Cache Hit: ${{ steps.cache-pip.outputs.cache-hit }}"
+      shell: cmd
       if: steps.cache-pip.outputs.cache-hit == 'true'
     
     - name: List Cache Contents (After)
-      run: ls -R ~/.cache
+      run: dir C:\Users\runneradmin\AppData\Local\pip\Cache
+      shell: cmd
 
     - name: Install Dependencies with Pip
       run: |
@@ -44,13 +46,19 @@ jobs:
         pip install -r requirements.txt
         pip install jupyter nbconvert
         pip install pytest # Assuming you want to run pytest
-
+      shell: cmd
+      
     - name: Execute DNN Training Notebook (Skip Training)
       env:
         SKIP_TRAINING: "True"
         SKIP_OPTUNA: "True"
       run: |
+        # Print the current working directory
+        echo "Current Working Directory:"
+        pwd
+        # Execute the Jupyter notebook
         jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output modeling_and_evaluation/executed_dnn_notebook.ipynb
+      shell: cmd
 
     - name: Execute LSTM Training Notebook (Skip Training)
       env:
@@ -58,6 +66,8 @@ jobs:
         SKIP_OPTUNA: "True"
       run: |
         jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_LSTM.ipynb --output modeling_and_evaluation/executed_lstm_notebook.ipynb
-
+      shell: cmd
+      
     - name: Run Tests with pytest
       run: pytest
+      shell: cmd
