@@ -13,10 +13,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.10
+    - name: Set up Python 3.11
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Cache pip and Python dependencies
       uses: actions/cache@v2
@@ -34,17 +34,17 @@ jobs:
         pip install -r requirements.txt
       shell: cmd
 
-  execute-dnn-notebook:
+  execute-fcn-notebook:
     needs: setup-dependencies
     runs-on: windows-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.10
+    - name: Set up Python 3.11
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Restore pip cache
       id: cache-pip
@@ -63,12 +63,49 @@ jobs:
         pip install -r requirements.txt
       shell: cmd
 
-    - name: Execute Jupyter Notebook (DNN)
+    - name: Execute Jupyter Notebook (FCN)
       env:
         SKIP_TRAINING: "True"
         SKIP_OPTUNA: "True"
       run: |
-        python -m jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_DNN.ipynb --output executed_dnn_notebook.ipynb
+        python -m jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_FCN.ipynb --output executed_dnn_notebook.ipynb
+      shell: cmd
+
+  execute-cnn-notebook:
+    needs: setup-dependencies
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Restore pip cache
+      id: cache-pip
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cache/pip
+          ~/AppData/Local/pip/Cache
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      shell: cmd
+
+    - name: Execute Jupyter Notebook (CNN)
+      env:
+        SKIP_TRAINING: "True"
+        SKIP_OPTUNA: "True"
+      run: |
+        python -m jupyter nbconvert --ExecutePreprocessor.kernel_name=python3 --ExecutePreprocessor.timeout=-1 --to notebook --execute modeling_and_evaluation/SOC_Estimation_CNN.ipynb --output executed_dnn_notebook.ipynb
       shell: cmd
 
   execute-lstm-notebook:
@@ -78,10 +115,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.10
+    - name: Set up Python 3.11
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Restore pip cache
       id: cache-pip
