@@ -87,7 +87,7 @@ The consolidation of these scripts into one directory streamlines the process fr
 The models have been trained and evaluated from negative 20 deg C to 40 deg C except charge pulse dataset, with the following key results:
 - FCN Model MSE: 0.0484 %, MAE: 0.17266 %
 - CNN Model MSE: 0.0540 %, MAE: 0.17665 %
-- LSTM Model MSE: 8.7771e-04 %, MAE: 0.1884 %
+- LSTM Model MSE: 1.3744e-03 %, MAE: 0.2255 %
 - The LSTM model outperformed the FCN and CNN in capturing temporal dependencies, achieving an even lower MSE of 8.7771e-04 % on the test data. Here in the LSTM Model, with 1 Hz processed, data 20 data points were selected as sequence lengths to capture temporal behaviour. 
 - Visualization of predictions against true values indicates excellent model alignment with real-world data.
 
