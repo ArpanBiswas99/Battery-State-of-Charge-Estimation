@@ -84,7 +84,7 @@ The consolidation of these scripts into one directory streamlines the process fr
 
 ## Results
 
-The models have been trained and evaluated from negative 20 deg C to 40 deg C expect charge pulse dataset, with the following key results:
+The models have been trained and evaluated from negative 20 deg C to 40 deg C except charge pulse dataset, with the following key results:
 - FCN Model MSE: 0.1741 %, MAE: 3.6369 %
 - CNN Model MSE: 0.1548 %, MAE: 3.2833 %
 - LSTM Model MSE: 8.7771e-04 %, MAE: 0.1884 %
